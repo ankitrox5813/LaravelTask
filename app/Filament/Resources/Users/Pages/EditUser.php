@@ -14,6 +14,10 @@ class EditUser extends EditRecord
     {
         return [
             DeleteAction::make(),
+             \Filament\Actions\Action::make('impersonate')
+            ->label('Impersonate')
+            ->visible(fn () => auth()->user()?->hasRole('admin') && auth()->id() !== $this->record->id)
+            ->url(fn () => route('impersonate', $this->record)),
         ];
     }
 }
