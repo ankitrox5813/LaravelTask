@@ -6,6 +6,8 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
+use Filament\Forms\Components\Select;
+
 class UserForm
 {
     public static function configure(Schema $schema): Schema
@@ -22,6 +24,12 @@ class UserForm
                 TextInput::make('password')
                     ->password()
                     ->required(),
+                 Select::make('roles')
+                ->relationship('roles', 'name')
+                ->multiple()
+                ->preload()
+                ->label('Roles')
+                ->required(),
             ]);
     }
 }

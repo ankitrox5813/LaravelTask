@@ -32,13 +32,6 @@ class UserResource extends Resource
         return UsersTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
@@ -47,4 +40,29 @@ class UserResource extends Resource
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
+
 }
